@@ -17,6 +17,8 @@ alt.onServer(View_Events_Characters.Done, handleDone);
 async function handleView(_characters: Partial<Character>[]) {
     characters = _characters;
 
+    alt.log('You should see this message in your client log');
+
     view = await View.getInstance(url, true);
     view.on('load', handleLoad);
     view.on('characters:Select', handleSelect);

@@ -8,12 +8,12 @@ addCommand('getvehicle', handleCommand);
 
 function handleCommand(player: alt.Player, name: string): void {
     if (!name) {
-        player.emit().message(getDescription('getvehicle'));
+        player.emitMessage(getDescription('getvehicle'));
         return;
     }
 
     if (player.data.isDead) {
-        player.emit().message(CommandsLocale.CANNOT_WHILE_DEAD);
+        player.emitMessage(CommandsLocale.CANNOT_WHILE_DEAD);
         return;
     }
 
@@ -24,6 +24,6 @@ function handleCommand(player: alt.Player, name: string): void {
         veh.setOwner(player);
         veh.setIntoVehicle(player, -1);
     } catch (err) {
-        player.emit().message(CommandsLocale.VEHICLE_MODEL_NOT_VALID);
+        player.emitMessage(CommandsLocale.VEHICLE_MODEL_NOT_VALID);
     }
 }

@@ -30,7 +30,7 @@ export class LoginController {
         }
 
         player.discord = data as DiscordUser;
-        player.emit().event(View_Events_Discord.Close);
+        player.emitEvent(View_Events_Discord.Close);
 
         // Used for DiscordToken skirt.
         if (!account) {
@@ -51,7 +51,7 @@ export class LoginController {
             }
         }
 
-        await player.set().account(account);
+        await player.setAccount(account);
         goToCharacterSelect(player);
     }
 
@@ -62,7 +62,7 @@ export class LoginController {
 
         try {
             alt.log(`${player.name} has logged out.`);
-            player.save().onTick();
+            player.saveOnTick();
         } catch (err) {
             alt.log(`[Athena] Attempted to log player out. Player data was not found.`);
             alt.log(`[Athena] If you are seeing this message on all disconnects something went wrong above.`);

@@ -1,44 +1,7 @@
 import * as alt from 'alt-server';
 
-const interfaceName = 'safe';
-
-export interface SafePrototype {
-    /**
-     * Safely set a player's position.
-     * @param {number} x
-     * @param {number} y
-     * @param {number} z
-     * @memberof SafePrototype
-     */
-    setPosition(x: number, y: number, z: number): void;
-
-    /**
-     * Safely add health to this player.
-     * @param {number} value 99-200
-     * @param {boolean} exactValue
-     * @memberof SafePrototype
-     */
-    addHealth(value: number, exactValue: boolean): void;
-
-    /**
-     * Safely add armour to this player.
-     * @param {number} value 1-100
-     * @param {boolean} exactValue
-     * @memberof SafePrototype
-     */
-    addArmour(value: number, exactValue: boolean): void;
-}
-
-export function bind(): SafePrototype {
-    const _this = this;
-    _this.addArmour = addArmour;
-    _this.addHealth = addHealth;
-    _this.setPosition = setPosition;
-    return _this;
-}
-
-function setPosition(x: number, y: number, z: number): void {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function setPosition(x: number, y: number, z: number): void {
+    const p: alt.Player = this as alt.Player;
 
     if (!p.hasModel) {
         p.hasModel = true;
@@ -50,8 +13,8 @@ function setPosition(x: number, y: number, z: number): void {
     p.pos = new alt.Vector3(x, y, z);
 }
 
-function addHealth(value: number, exactValue: boolean = false) {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function addHealth(value: number, exactValue: boolean = false) {
+    const p: alt.Player = this as alt.Player;
 
     if (exactValue) {
         p.acHealth = value;
@@ -69,8 +32,8 @@ function addHealth(value: number, exactValue: boolean = false) {
     p.health += value;
 }
 
-function addArmour(value: number, exactValue: boolean = false): void {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function addArmour(value: number, exactValue: boolean = false): void {
+    const p: alt.Player = this as alt.Player;
 
     if (exactValue) {
         p.acArmour = value;

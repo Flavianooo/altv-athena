@@ -1,43 +1,6 @@
 import * as alt from 'alt-server';
 import { CurrencyTypes } from '../../../shared/enums/currency';
 
-export interface CurrencyPrototype {
-    /**
-     * Add a currency type to this player.
-     * @param {CurrencyTypes} type
-     * @param {number} amount
-     * @return {*}  {boolean}
-     * @memberof CurrencyPrototype
-     */
-    add(type: CurrencyTypes, amount: number): boolean;
-
-    /**
-     * Subtract a currency type from this player.
-     * @param {CurrencyTypes} type
-     * @param {number} amount
-     * @return {*}  {boolean}
-     * @memberof CurrencyPrototype
-     */
-    sub(type: CurrencyTypes, amount: number): boolean;
-
-    /**
-     * Set this player's currency type to a specific value.
-     * @param {CurrencyTypes} type
-     * @param {number} amount
-     * @return {*}  {boolean}
-     * @memberof CurrencyPrototype
-     */
-    setCurrency(type: CurrencyTypes, amount: number): boolean;
-}
-
-export function bind(): CurrencyPrototype {
-    const _this = this;
-    _this.add = add;
-    _this.sub = sub;
-    _this.setCurrency = setCurrency;
-    return _this;
-}
-
 /**
  * Add currency type to the player.
  * @param {CurrencyTypes} type
@@ -45,8 +8,8 @@ export function bind(): CurrencyPrototype {
  * @return {boolean} Success?
  * @memberof CurrencyPrototype
  */
-function add(type: CurrencyTypes, amount: number): boolean {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function add(type: CurrencyTypes, amount: number): boolean {
+    const p: alt.Player = this as alt.Player;
 
     if (amount > Number.MAX_SAFE_INTEGER) {
         amount = Number.MAX_SAFE_INTEGER - 1;
@@ -54,8 +17,8 @@ function add(type: CurrencyTypes, amount: number): boolean {
 
     try {
         p.data[type] += amount;
-        p.emit().meta(type, p.data[type]);
-        p.save().field(type, p.data[type]);
+        p.emitMeta(type, p.data[type]);
+        p.saveField(type, p.data[type]);
         return true;
     } catch (err) {
         return false;
@@ -69,8 +32,8 @@ function add(type: CurrencyTypes, amount: number): boolean {
  * @return {boolean} Success?
  * @memberof CurrencyPrototype
  */
-function sub(type: CurrencyTypes, amount: number): boolean {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function sub(type: CurrencyTypes, amount: number): boolean {
+    const p: alt.Player = this as alt.Player;
 
     if (amount > Number.MAX_SAFE_INTEGER) {
         amount = Number.MAX_SAFE_INTEGER - 1;
@@ -78,8 +41,8 @@ function sub(type: CurrencyTypes, amount: number): boolean {
 
     try {
         p.data[type] -= amount;
-        p.emit().meta(type, p.data[type]);
-        p.save().field(type, p.data[type]);
+        p.emitMeta(type, p.data[type]);
+        p.saveField(type, p.data[type]);
         return true;
     } catch (err) {
         return false;
@@ -93,8 +56,8 @@ function sub(type: CurrencyTypes, amount: number): boolean {
  * @return {*}  {boolean}
  * @memberof CurrencyPrototype
  */
-function setCurrency(type: CurrencyTypes, amount: number): boolean {
-    const p: alt.Player = (this as unknown) as alt.Player;
+export function setCurrency(type: CurrencyTypes, amount: number): boolean {
+    const p: alt.Player = this as alt.Player;
 
     if (amount > Number.MAX_SAFE_INTEGER) {
         amount = Number.MAX_SAFE_INTEGER - 1;
@@ -102,8 +65,8 @@ function setCurrency(type: CurrencyTypes, amount: number): boolean {
 
     try {
         p.data[type] = amount;
-        p.emit().meta(type, p.data[type]);
-        p.save().field(type, p.data[type]);
+        p.emitMeta(type, p.data[type]);
+        p.saveField(type, p.data[type]);
         return true;
     } catch (err) {
         return false;

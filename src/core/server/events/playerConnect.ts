@@ -19,7 +19,7 @@ async function handlePlayerConnect(player: alt.Player): Promise<void> {
             return;
         }
 
-        player.set().firstConnect();
+        player.setFirstConnect();
     }, 1000);
 }
 

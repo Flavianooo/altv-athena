@@ -7,7 +7,7 @@ addCommand('setarmour', handleCommand);
 
 function handleCommand(player: alt.Player, value: number = 100, targetPlayerID: string | null = null): void {
     if (isNaN(value)) {
-        player.emit().message(getDescription('setarmour'));
+        player.emitMessage(getDescription('setarmour'));
         return;
     }
 
@@ -26,7 +26,7 @@ function handleCommand(player: alt.Player, value: number = 100, targetPlayerID: 
 
     const target: alt.Player = [...alt.Player.all].find((x) => x.id.toString() === targetPlayerID);
     if (!target) {
-        player.emit().message(CommandsLocale.CANNOT_FIND_PLAYER);
+        player.emitMessage(CommandsLocale.CANNOT_FIND_PLAYER);
         return;
     }
 
@@ -34,6 +34,6 @@ function handleCommand(player: alt.Player, value: number = 100, targetPlayerID: 
 }
 
 function finishSetArmour(target: alt.Player, value: number) {
-    target.safe().addArmour(value, true);
-    target.emit().message(`${CommandsLocale.ARMOUR_SET_TO}${value}`);
+    target.addArmour(value, true);
+    target.emitMessage(`${CommandsLocale.ARMOUR_SET_TO}${value}`);
 }

@@ -28,6 +28,6 @@ function handleCommand(player: alt.Player): void {
     const itemClone = { ...itemRef };
     itemClone.slot = 0;
     player.data.inventory[0].push(itemClone);
-    player.save().field('inventory', player.data.inventory);
-    player.sync().inventory();
+    player.saveField('inventory', player.data.inventory);
+    player.syncInventory();
 }

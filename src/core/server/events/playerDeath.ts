@@ -7,5 +7,5 @@ function handleDeath(player: alt.Player, killer: alt.Player, weaponHash: any): v
         return;
     }
 
-    player.set().dead(killer, weaponHash);
+    player.setDead(killer, weaponHash);
 }

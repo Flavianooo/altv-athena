@@ -27,27 +27,25 @@ function handleCycleLock(player: alt.Player, vehicle: alt.Vehicle): void {
 
     const lockState = vehicle.cycleLock(player, false);
 
-    player.emit().notification(`Vehicle Lock Set to ~y~${Vehicle_Lock_State[lockState].replace('_', ' ')}`);
+    player.emitNotification(`Vehicle Lock Set to ~y~${Vehicle_Lock_State[lockState].replace('_', ' ')}`);
 
     if (lockState !== Vehicle_Lock_State.LOCKED && lockState !== Vehicle_Lock_State.UNLOCKED) {
         return;
     }
 
     if (!player.vehicle) {
-        player
-            .emit()
-            .animation(
-                `anim@mp_player_intmenu@key_fob@`,
-                'fob_click_fp',
-                AnimationFlags.UPPERBODY_ONLY | AnimationFlags.ENABLE_PLAYER_CONTROL,
-                -1
-            );
+        player.emitAnimation(
+            `anim@mp_player_intmenu@key_fob@`,
+            'fob_click_fp',
+            AnimationFlags.UPPERBODY_ONLY | AnimationFlags.ENABLE_PLAYER_CONTROL,
+            -1
+        );
     }
 
     const soundName = lockState === Vehicle_Lock_State.UNLOCKED ? 'car_unlock' : 'car_lock';
     const playersNearPlayer = getPlayersByGridSpace(player, 8);
     playersNearPlayer.forEach((target) => {
-        target.emit().sound3D(soundName, vehicle);
+        target.emitSound3D(soundName, vehicle);
     });
 }
 

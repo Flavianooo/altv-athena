@@ -42,14 +42,14 @@ function handleCreatorDone(player: alt.Player, appearance: Appearance, info: Cha
 
     if (player.pendingNewCharacter) {
         player.pendingNewCharacter = false;
-        player.newData().character(appearance, info, name);
+        player.newCharacter(appearance, info, name);
         return;
     }
 
     player.pendingCharacterEdit = false;
-    player.dataUpdater().updateByKeys(appearance, 'appearance');
-    player.dataUpdater().updateByKeys(info, 'info');
-    player.sync().appearance();
+    player.dataUpdateByKeys(appearance, 'appearance');
+    player.dataUpdateByKeys(info, 'info');
+    player.syncAppearance();
 
     // Resync Position After Appearance for Interior Bug
     alt.setTimeout(() => {
@@ -57,7 +57,7 @@ function handleCreatorDone(player: alt.Player, appearance: Appearance, info: Cha
             return;
         }
 
-        player.safe().setPosition(player.pos.x, player.pos.y, player.pos.z);
+        player.setPosition(player.pos.x, player.pos.y, player.pos.z);
     }, 500);
 }
 

@@ -27,7 +27,7 @@ function handleProcess(player: alt.Player, selectedSlot: string, endSlot: string
     }
 
     if (selectedSlot === endSlot) {
-        player.sync().inventory();
+        player.syncInventory();
         return;
     }
 
@@ -58,7 +58,7 @@ function handleProcess(player: alt.Player, selectedSlot: string, endSlot: string
     console.log(selectItems);
 
     if (selectItems.length <= 0) {
-        player.sync().inventory();
+        player.syncInventory();
         return;
     }
 
@@ -85,14 +85,14 @@ function handleProcess(player: alt.Player, selectedSlot: string, endSlot: string
 
     if (selectData.name !== endData.name) {
         // Uses different name variables
-        player.save().field(selectData.name, player.data[selectData.name]);
-        player.save().field(endData.name, player.data[endData.name]);
+        player.saveField(selectData.name, player.data[selectData.name]);
+        player.saveField(endData.name, player.data[endData.name]);
     } else {
         // Uses same name variable
-        player.save().field(endData.name, player.data[endData.name]);
+        player.saveField(endData.name, player.data[endData.name]);
     }
     alt.log(`Should have moved: ${selectedSlot} to ${endSlot}`);
-    player.sync().inventory();
+    player.syncInventory;
 }
 
 function addToSlot(
